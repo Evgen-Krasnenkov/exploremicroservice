@@ -19,6 +19,5 @@ public interface TourPackageRepository extends CrudRepository<TourPackage, Strin
 
     List<Tour> findByTourPackageCodeAndDifficultyAndRegionAndPriceMoreThan
             (String code, Difficulty difficulty, Region region, Integer minPrice);
-
- */
+    */
 }

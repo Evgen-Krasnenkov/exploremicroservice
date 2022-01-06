@@ -28,9 +28,7 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
    // @Value("${exploremicroservice.importfile}")
    // private String importFile;
 
-    //@Autowired
     private TourPackageService tourPackageService;
-  //  @Autowired
     private TourService tourService;
 
     public static void main(String[] args) {
@@ -45,32 +43,34 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
         long numOfTours = tourService.total();
     }
     private void createTourPackages() {
-        tourPackageService.createTourPackage("BC", "Backpacking Cal");
-        tourPackageService.createTourPackage("CC", "California South");
-        tourPackageService.createTourPackage("CH", "California Hot");
+        tourPackageService.createTourPackage("BC", "Backpack Cal");
+        tourPackageService.createTourPackage("CC", "California Calm");
+        tourPackageService.createTourPackage("CH", "California Hot springs");
         tourPackageService.createTourPackage("CY", "Cycle California");
-        tourPackageService.createTourPackage("DS", "From Destination");
+        tourPackageService.createTourPackage("DS", "From Desert to Sea");
         tourPackageService.createTourPackage("KC", "Kids California");
-        tourPackageService.createTourPackage("NW", "Nature Walking");
-        tourPackageService.createTourPackage("SC", "SnowBoarding");
-        tourPackageService.createTourPackage("TC", "Taste Of California");
+        tourPackageService.createTourPackage("NW", "Nature Watch");
+        tourPackageService.createTourPackage("SC", "Snowboard Cali");
+        tourPackageService.createTourPackage("TC", "Taste of California");
     }
 
     private void createTours(String fileToImport) throws IOException {
-        TourFromFile.read(fileToImport).forEach(importedTour ->
-                tourService.createTour(importedTour.getTitle(),
-                        importedTour.getDescription(),
-                        importedTour.getBlurb(),
-                        importedTour.getPrice(),
-                        importedTour.getLength(),
-                        importedTour.getBullets(),
-                        importedTour.getKeywords(),
-                        importedTour.getPackageType(),
-                        importedTour.getDifficulty(),
-                        importedTour.getRegion()));
+        List<TourFromFile> read = TourFromFile.read(fileToImport);
+        for (TourFromFile importedTour : read) {
+            tourService.createTour(importedTour.getTitle(),
+                    importedTour.getDescription(),
+                    importedTour.getBlurb(),
+                    importedTour.getPrice(),
+                    importedTour.getLength(),
+                    importedTour.getBullets(),
+                    importedTour.getKeywords(),
+                    importedTour.getPackageType(),
+                    importedTour.getDifficulty(),
+                    importedTour.getRegion());
+        }
 
     }
-    private class TourFromFile {
+    private static class TourFromFile {
         private String packageType, title, description, blurb, price, length,
                  bullets, keywords, difficulty, region;
 
