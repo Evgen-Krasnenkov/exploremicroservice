@@ -16,8 +16,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,7 +36,6 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
     public static void main(String[] args) {
         SpringApplication.run(ExploremicroserviceApplication.class, args);
     }
-    //TO DO - Lesson folder 3, video 6
 
     @Override
     public void run(String... args) throws Exception {
@@ -60,46 +57,37 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
     }
 
     private void createTours(String fileToImport) throws IOException {
-    //    List<TourFromFile> read = TourFromFile.read(fileToImport);
-
-        List<TourFromFile> read = TourFromFile.read(fileToImport);
-        TourFromFile tourFromFile = read.get(0);
-        String blurb = tourFromFile.getBlurb();
-        System.out.println("hello");
-        read.forEach(importedTour ->
+        TourFromFile.read(fileToImport).forEach(importedTour ->
                 tourService.createTour(importedTour.getTitle(),
                         importedTour.getDescription(),
                         importedTour.getBlurb(),
-                        Integer.valueOf(importedTour.getPrice()),
-                        importedTour.getDuration(),
+                        importedTour.getPrice(),
+                        importedTour.getLength(),
                         importedTour.getBullets(),
                         importedTour.getKeywords(),
                         importedTour.getPackageType(),
-                        Difficulty.valueOf(importedTour.difficulty),
-                        Region.valueOf(importedTour.region)));
+                        importedTour.getDifficulty(),
+                        importedTour.getRegion()));
 
     }
     private class TourFromFile {
-        private String packageType, title, description, blurb, price,
-                duration, bullets, keywords, region, difficulty;
+        private String packageType, title, description, blurb, price, length,
+                 bullets, keywords, difficulty, region;
 
-        public static List<TourFromFile> read(String fileToImport) throws IOException {
-            /*
-            FileInputStream fileInputStream = new FileInputStream(fileToImport);
-            ObjectMapper objectMapper = new ObjectMapper().setVisibility(FIELD, ANY);
-            List<TourFromFile> listFromFile
-                    = objectMapper.readValue(fileInputStream,
-                                             new TypeReference<>() {});*/
-            Object o = new ObjectMapper().setVisibility(FIELD, ANY).readValue(new FileInputStream(fileToImport),
-                    new TypeReference<>() {
-                    });
-            List<TourFromFile> tourFromFiles = (List<TourFromFile>) new ObjectMapper().setVisibility(FIELD, ANY).readValue(new FileInputStream(fileToImport),
-                    new TypeReference<>() {
-                    });
-            return tourFromFiles;
+        static List<TourFromFile> read(String fileToImport) throws IOException {
+            return new ObjectMapper().setVisibility(FIELD, ANY).
+                    readValue(new FileInputStream(fileToImport), new TypeReference<List<TourFromFile>>() {});
         }
 
         public TourFromFile() {
+        }
+
+        public String getLength() {
+            return length;
+        }
+
+        public void setLength(String length) {
+            this.length = length;
         }
 
         public String getPackageType() {
@@ -134,20 +122,12 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
             this.blurb = blurb;
         }
 
-        public String getPrice() {
-            return price;
+        public Integer getPrice() {
+            return Integer.valueOf(price);
         }
 
         public void setPrice(String price) {
             this.price = price;
-        }
-
-        public String getDuration() {
-            return duration;
-        }
-
-        public void setDuration(String duration) {
-            this.duration = duration;
         }
 
         public String getBullets() {
@@ -166,16 +146,17 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
             this.keywords = keywords;
         }
 
-        public String getRegion() {
-            return region;
+        public Region getRegion() {
+            return Region.findByLabel(region);
         }
 
         public void setRegion(String region) {
             this.region = region;
         }
 
-        public String getDifficulty() {
-            return difficulty;
+        public Difficulty getDifficulty() {
+
+            return Difficulty.valueOf(difficulty);
         }
 
         public void setDifficulty(String difficulty) {
