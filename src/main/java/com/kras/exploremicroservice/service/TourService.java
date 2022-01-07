@@ -1,9 +1,9 @@
 package com.kras.exploremicroservice.service;
 
-import com.kras.exploremicroservice.domain.Difficulty;
-import com.kras.exploremicroservice.domain.Region;
-import com.kras.exploremicroservice.domain.Tour;
-import com.kras.exploremicroservice.domain.TourPackage;
+import com.kras.exploremicroservice.model.Difficulty;
+import com.kras.exploremicroservice.model.Region;
+import com.kras.exploremicroservice.model.Tour;
+import com.kras.exploremicroservice.model.TourPackage;
 import com.kras.exploremicroservice.repo.TourPackageRepository;
 import com.kras.exploremicroservice.repo.TourRepository;
 import lombok.AllArgsConstructor;

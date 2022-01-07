@@ -5,15 +5,12 @@ import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jayway.jsonpath.TypeRef;
-import com.kras.exploremicroservice.domain.Difficulty;
-import com.kras.exploremicroservice.domain.Region;
+import com.kras.exploremicroservice.model.Difficulty;
+import com.kras.exploremicroservice.model.Region;
 import com.kras.exploremicroservice.service.TourPackageService;
 import com.kras.exploremicroservice.service.TourService;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -39,7 +36,7 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         createTourPackages();
         long numOfPackages = tourPackageService.total();
-        createTours("ExploreCalifornia.json");
+        createTours("/home/evgen/IdeaProjects/exploremicroservice/ExploreCalifornia.json");
         long numOfTours = tourService.total();
     }
     private void createTourPackages() {
@@ -56,18 +53,16 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
 
     private void createTours(String fileToImport) throws IOException {
         List<TourFromFile> read = TourFromFile.read(fileToImport);
-        for (TourFromFile importedTour : read) {
-            tourService.createTour(importedTour.getTitle(),
-                    importedTour.getDescription(),
-                    importedTour.getBlurb(),
-                    importedTour.getPrice(),
-                    importedTour.getLength(),
-                    importedTour.getBullets(),
-                    importedTour.getKeywords(),
-                    importedTour.getPackageType(),
-                    importedTour.getDifficulty(),
-                    importedTour.getRegion());
-        }
+        read.forEach(importedTour -> tourService.createTour(importedTour.getTitle(),
+                importedTour.getDescription(),
+                importedTour.getBlurb(),
+                importedTour.getPrice(),
+                importedTour.getLength(),
+                importedTour.getBullets(),
+                importedTour.getKeywords(),
+                importedTour.getPackageType(),
+                importedTour.getDifficulty(),
+                importedTour.getRegion()));
 
     }
     private static class TourFromFile {

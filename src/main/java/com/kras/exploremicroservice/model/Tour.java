@@ -1,4 +1,4 @@
-package com.kras.exploremicroservice.domain;
+package com.kras.exploremicroservice.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,8 +6,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class Tour {

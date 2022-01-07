@@ -1,4 +1,4 @@
-package com.kras.exploremicroservice.domain;
+package com.kras.exploremicroservice.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

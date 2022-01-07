@@ -1,8 +1,7 @@
 package com.kras.exploremicroservice.service;
 
-import com.kras.exploremicroservice.domain.TourPackage;
+import com.kras.exploremicroservice.model.TourPackage;
 import com.kras.exploremicroservice.repo.TourPackageRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service

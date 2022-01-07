@@ -1,4 +1,4 @@
-package com.kras.exploremicroservice.domain;
+package com.kras.exploremicroservice.model;
 
 public enum Difficulty {
     Easy, Medium, Difficult, Varies;
