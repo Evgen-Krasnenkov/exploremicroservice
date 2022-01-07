@@ -13,20 +13,27 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@AllArgsConstructor
 @SpringBootApplication
 public class ExploremicroserviceApplication implements CommandLineRunner {
 
-   // @Value("${exploremicroservice.importfile}")
-   // private String importFile;
+    @Value("${exploremicroservice.importfile}")
+    private String importFile;
 
     private TourPackageService tourPackageService;
     private TourService tourService;
+
+    public ExploremicroserviceApplication(TourPackageService tourPackageService, TourService tourService) {
+        this.importFile = importFile;
+        this.tourPackageService = tourPackageService;
+        this.tourService = tourService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ExploremicroserviceApplication.class, args);
@@ -36,7 +43,7 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         createTourPackages();
         long numOfPackages = tourPackageService.total();
-        createTours("/home/evgen/IdeaProjects/exploremicroservice/ExploreCalifornia.json");
+        createTours(importFile);
         long numOfTours = tourService.total();
     }
     private void createTourPackages() {
