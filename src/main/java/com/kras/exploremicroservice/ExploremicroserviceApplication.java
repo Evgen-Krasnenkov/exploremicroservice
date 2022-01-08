@@ -1,12 +1,12 @@
 package com.kras.exploremicroservice;
 
-import com.kras.exploremicroservice.model.TourRating;
 import com.kras.exploremicroservice.service.TourPackageService;
 import com.kras.exploremicroservice.service.TourService;
 import java.io.IOException;
 import java.util.List;
 
 import com.kras.exploremicroservice.util.TourFromFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,14 +19,10 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
     @Value("${exploremicroservice.importfile}")
     private String importFile;
 
+    @Autowired
     private TourPackageService tourPackageService;
+    @Autowired
     private TourService tourService;
-
-    public ExploremicroserviceApplication(TourPackageService tourPackageService, TourService tourService) {
-        this.importFile = importFile;
-        this.tourPackageService = tourPackageService;
-        this.tourService = tourService;
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(ExploremicroserviceApplication.class, args);
@@ -35,9 +31,7 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         createTourPackages();
-        long numOfPackages = tourPackageService.total();
         createTours(importFile);
-        long numOfTours = tourService.total();
     }
     private void createTourPackages() {
         tourPackageService.createTourPackage("BC", "Backpack Cal");
@@ -56,15 +50,11 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
 
     private void createTours(String fileToImport) throws IOException {
         List<TourFromFile> read = TourFromFile.read(fileToImport);
-        read.forEach(importedTour -> tourService.createTour(importedTour.getTitle(),
-                importedTour.getDescription(),
-                importedTour.getBlurb(),
-                importedTour.getPrice(),
-                importedTour.getLength(),
-                importedTour.getBullets(),
-                importedTour.getKeywords(),
-                importedTour.getPackageType(),
-                importedTour.getDifficulty(),
-                importedTour.getRegion()));
+        read.forEach(importedTour -> tourService.createTour(
+                importedTour.getTitle(),
+                importedTour.getPackageName(),
+                importedTour.getDetails()
+                )
+        );
     }
 }

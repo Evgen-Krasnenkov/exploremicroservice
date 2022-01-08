@@ -35,6 +35,11 @@ There is a standard GET => /tourPackages/search/findByName{?name}
 
 http://localhost:8080/browser/index.html
 
+#Mongo-DB
+
+The branch microservice-mongodb includes modified version so that our controller works
+with Mongo DateBase
+
 #My DataBase Visual Schema
 
 ![img.png](img.png)

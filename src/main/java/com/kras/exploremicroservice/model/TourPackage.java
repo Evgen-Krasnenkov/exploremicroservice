@@ -1,38 +1,28 @@
 package com.kras.exploremicroservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document
+@EqualsAndHashCode
+@ToString
+@Getter
+@Setter
 public class TourPackage {
     @Id
     private String code;
-
-    @Column
+    @Indexed
     private String name;
 
     public TourPackage() {
     }
-
     public TourPackage(String code, String name) {
         this.code = code;
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 }

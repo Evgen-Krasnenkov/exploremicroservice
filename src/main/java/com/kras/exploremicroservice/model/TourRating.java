@@ -1,50 +1,43 @@
 package com.kras.exploremicroservice.model;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Entity
+@Document
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class TourRating {
-    @EmbeddedId
-    private TourRatingPk pk;
+    @Id
+    private String id;
+    private String tourId;
 
-    @Column(nullable = false)
+    @NotNull
+    private Integer customerId;
+
+    @Min(0)
+    @Max(5)
     private Long score;
 
-    @Column
+    @Size(max = 255)
     private String comment;
 
     public TourRating() {
     }
 
-    public TourRating(TourRatingPk pk, Long score, String comment) {
-        this.pk = pk;
+    public TourRating(String tourId, Integer customerId, Long score, String comment) {
+        this.tourId = tourId;
+        this.customerId = customerId;
         this.score = score;
-        this.comment = comment;
-    }
-
-    public TourRatingPk getPk() {
-        return pk;
-    }
-
-    public void setPk(TourRatingPk pk) {
-        this.pk = pk;
-    }
-
-    public Long getScore() {
-        return score;
-    }
-
-    public void setScore(Long score) {
-        this.score = score;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
         this.comment = comment;
     }
 }

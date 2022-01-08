@@ -4,12 +4,13 @@ import com.kras.exploremicroservice.model.TourPackage;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource(collectionResourceRel = "packages", path = "packages")
 public interface TourPackageRepository extends CrudRepository<TourPackage, String> {
-    Optional<TourPackage> findByName(String name);
+    Optional<TourPackage> findByName(@Param("name") String name);
 
     @Override
     @RestResource(exported = false)
@@ -26,10 +27,6 @@ public interface TourPackageRepository extends CrudRepository<TourPackage, Strin
     @Override
     @RestResource(exported = false)
     void delete(TourPackage entity);
-
-    @Override
-    @RestResource(exported = false)
-    void deleteAllById(Iterable<? extends String> strings);
 
     @Override
     @RestResource(exported = false)
