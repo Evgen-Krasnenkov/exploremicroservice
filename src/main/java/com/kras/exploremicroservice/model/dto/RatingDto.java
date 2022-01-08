@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 public class RatingDto {
     @Min(0)
     @Max(5)
-    private Integer score;
+    private Long score;
 
     @Size(max = 255)
     private String  comment;
@@ -25,17 +25,17 @@ public class RatingDto {
         this(tourRating.getScore(), tourRating.getComment(), tourRating.getPk().getCustomerId());
     }
 
-    public RatingDto(Integer score, String comment, Integer customerId) {
+    public RatingDto(Long score, String comment, Integer customerId) {
         this.score = score;
         this.comment = comment;
         this.customerId = customerId;
     }
 
-    public Integer getScore() {
+    public Long getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Long score) {
         this.score = score;
     }
 

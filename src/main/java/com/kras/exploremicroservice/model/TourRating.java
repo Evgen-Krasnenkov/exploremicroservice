@@ -10,7 +10,7 @@ public class TourRating {
     private TourRatingPk pk;
 
     @Column(nullable = false)
-    private Integer score;
+    private Long score;
 
     @Column
     private String comment;
@@ -18,7 +18,7 @@ public class TourRating {
     public TourRating() {
     }
 
-    public TourRating(TourRatingPk pk, Integer score, String comment) {
+    public TourRating(TourRatingPk pk, Long score, String comment) {
         this.pk = pk;
         this.score = score;
         this.comment = comment;
@@ -32,11 +32,11 @@ public class TourRating {
         this.pk = pk;
     }
 
-    public Integer getScore() {
+    public Long getScore() {
         return score;
     }
 
-    public void setScore(Integer score) {
+    public void setScore(Long score) {
         this.score = score;
     }
 
