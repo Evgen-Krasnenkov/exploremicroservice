@@ -2,14 +2,13 @@ package com.kras.exploremicroservice.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kras.exploremicroservice.model.Difficulty;
-import com.kras.exploremicroservice.model.Region;
 import lombok.Getter;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
@@ -37,5 +36,51 @@ public class TourFromFile {
         return maps.stream()
                 .map(TourFromFile::new)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String toString() {
+        return "TourFromFile{" +
+                "title='" + title + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", details=" + details +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TourFromFile that = (TourFromFile) o;
+        return Objects.equals(title, that.title) && Objects.equals(packageName, that.packageName) && Objects.equals(details, that.details);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, packageName, details);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public Map<String, String> getDetails() {
+        return details;
+    }
+
+    public void setDetails(Map<String, String> details) {
+        this.details = details;
     }
 }

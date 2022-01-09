@@ -30,8 +30,8 @@ public class ExploremicroserviceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        createTourPackages();
-        createTours(importFile);
+       // createTourPackages();
+      //  createTours(importFile);
     }
     private void createTourPackages() {
         tourPackageService.createTourPackage("BC", "Backpack Cal");

@@ -9,9 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 public interface TourRepository extends PagingAndSortingRepository<Tour, String> {
-    //List<Tour> findByTourPackageCode(@Param("code")String code);
-
-    Page<Tour> findByTourPackageCode(@Param("code")String code, Pageable pageable);
+   Page<Tour> findByTourPackageCode(@Param("code")String code, Pageable pageable);
 
     @Query(value = "{'tourPackageCode' : ?0}",
            fields = "{ 'id':1, 'title':1, 'tourPackageCode':1, 'tourPackageName':1}")
@@ -31,10 +29,6 @@ public interface TourRepository extends PagingAndSortingRepository<Tour, String>
 
     @Override
     void delete(Tour entity);
-
-    @Override
-    @RestResource(exported = false)
-    void deleteAllById(Iterable<? extends String> strings);
 
     @Override
     @RestResource(exported = false)

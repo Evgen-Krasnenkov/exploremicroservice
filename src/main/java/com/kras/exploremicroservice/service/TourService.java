@@ -1,13 +1,9 @@
 package com.kras.exploremicroservice.service;
 
-import com.kras.exploremicroservice.model.Difficulty;
-import com.kras.exploremicroservice.model.Region;
 import com.kras.exploremicroservice.model.Tour;
 import com.kras.exploremicroservice.model.TourPackage;
 import com.kras.exploremicroservice.repo.TourPackageRepository;
 import com.kras.exploremicroservice.repo.TourRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
